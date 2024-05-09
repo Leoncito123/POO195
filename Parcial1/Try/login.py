@@ -1,13 +1,12 @@
 from tkinter import messagebox
 
 class Verification :
-        
     def veri(self, user, password):
         try: 
-            self.__user == 'root'
-            self.__password == 'root'
-            return True
-        except:
-            print(messagebox.showerror('showeeror', 'Error en las credenciales, verifique'))
-            
-            
+            if user == 'root' and password == 'root':
+                return True
+            else:
+                return False        
+        except Exception as e:
+          print(f"Error en la verificación:{str(e)}")
+          return False            

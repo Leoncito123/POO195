@@ -6,8 +6,14 @@ def auto():
     user = entry_user.get()
     password = entry_password.get()
     
-    user_obj = Verification(user,password)
-    verifi = user_obj.veri()
+    user_obj = Verification()
+    try:
+        if user_obj.veri(user, password):
+            messagebox.showinfo("Inicio de sesion", "Bienvenido")
+        else:
+            messagebox.showerror("Inicio de sesion", "Usuario o contraseña incorrectos")
+    except Exception as e:
+        messagebox.showerror("Inicio de sesion", "Error en la verificación")
 
 ventana = tk.Tk()
 
