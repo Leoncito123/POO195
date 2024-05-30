@@ -1,7 +1,22 @@
-from flask import Flask, request
+from flask import Flask, render_template, request, jsonify
+from flask_mysqldb import MySQL
+import MySQLdb.cursors
 
 #instacia de la clase Flask
 app = Flask(__name__)
+
+#Variable del host de la base de datos
+app.config['MYSQL_HOST'] = 'localhost'
+#Variable de usuario de la base de datos
+app.config['MYSQL_USER'] = 'root'
+#Variable de la contraseña de la base de datos
+app.config['MYSQL_PASSWORD'] = ''
+#Variable de la base de datos
+app.config['MYSQL_DB'] = 'bd_flask'
+
+#Variable de la conexion a la base de datos
+mysql = MySQL(app)
+
 
 #Ruta basica
 @app.route('/')
@@ -17,6 +32,17 @@ def saludar():
 @app.route('/hi/<nombre>')
 def hi(nombre):
     return 'Hola'+ ' '+ nombre + '!!!'
+
+#Ruta para comprobar la conexion a la base de datos
+@app.route('pruebaConexion')
+def preubaConexion():
+    try:
+        cursor = mysql.connection.cursor()
+        cursor.execute('SELECT 1')
+        data = cursor.fetchone()
+        return jsonify({'satatus': 'Conexion exitosa', 'data':data})
+    except Exception as ex:
+        return jsonify({'status':'Error en la conexion', 'data': str(ex)})
 
 #Definicon de metodos de trabajo 
 @app.route('/formulario/', methods=['GET','POST'])
