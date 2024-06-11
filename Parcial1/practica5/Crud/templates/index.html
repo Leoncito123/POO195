@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulario Albums</title>
+</head>
+<body>
+    {%
+        with msj = get_flashed_messages()
+    %}
+    {%if msj%}
+    {%for mensaje in msj%}
+    <h1>{{mensaje}}</h1>
+    {%endfor%}
+    {%endif%}
+    {%endwith%}
+    
+    <form action="/albums" method="POST">
+        <label for="">Titulo: </label>
+        <input type="text" name="txtTitulo">
+        <label for="">Artista: </label>
+        <input type="text" name="artist">
+        <label for="">Año: </label>
+        <input type="number" name="ano">
+        <button type="submit" >Guardar Album</button>
+    </form>
+</body>
+</html>
